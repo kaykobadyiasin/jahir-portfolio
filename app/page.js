@@ -8,7 +8,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
 
-
   useEffect(() => {
     const textWrappers = document.querySelectorAll(".text-wrapper")
 
