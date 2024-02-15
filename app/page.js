@@ -2,13 +2,27 @@
 import gsap from "gsap";
 import Banner from "./components/Banner/Banner";
 import { ScrollTrigger } from "gsap/all";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import jahir from '@/public/jahir.jpg'
 import ignite from '@/public/ignite.png'
 import matribhumi from '@/public/Matribhumi-group.png'
+import logo from '@/public/fav.png'
 import Button from "./components/Button/Button";
 import Link from "next/link";
-import { useForm } from "react-hook-form";
+import Contact from "./components/Contact/Contact";
+
+// icons 
+import { Icon } from "@iconify/react";
+import lineHorizontalIcon from '@iconify/icons-fluent/line-horizontal-3-20-filled';
+import navigation from '@iconify/icons-fluent/navigation-unread-24-regular';
+
+import close from '@iconify/icons-mdi/close';
+import facebookIcon from '@iconify/icons-ri/facebook-fill';
+import instagram from '@iconify/icons-mdi/instagram';
+import linkedin from '@iconify/icons-mdi/linkedin';
+import twitter from '@iconify/icons-mdi/twitter';
+import youtube from '@iconify/icons-mdi/youtube';
+import Footer from "./components/Footer/Footer";
 
 gsap.registerPlugin(ScrollTrigger);
 console.log(jahir)
@@ -28,7 +42,7 @@ const timelineData = [
 const featureData = [
   { _id: 1, title: "Item 1", image: "https://jahir.com.bd/wp-content/uploads/2022/08/sOMOKAL-300x128.png", link: "https://samakal.com/todays-print-edition/tp-sahos/article/200745389/" },
   { _id: 2, title: "Item 2", image: "https://jahir.com.bd/wp-content/uploads/2022/08/pROTHOM-Alo-300x128.png", link: "https://www.prothomalo.com/lifestyle/" },
-  { _id: 3, title: "Item 3", image: "https://jahir.com.bd/wp-content/uploads/2022/08/Desh-RUpantor-Logo-300x128.png", link: "https://www.deshrupantor.com/252788/" },
+  { _id: 3, title: "Item 3", image: "https://i.ibb.co/wJF0K4r/desh.png", link: "https://www.deshrupantor.com/252788/" },
   { _id: 4, title: "Item 4", image: "https://jahir.com.bd/wp-content/uploads/2022/08/bONIK-bATRA-300x128.png", link: "https://bonikbarta.net/" },
   { _id: 5, title: "Item 5", image: "https://jahir.com.bd/wp-content/uploads/2022/08/Khola-kagoj-300x128.png", link: "https://www.kholakagojbd.com/national/58229?fbclid=IwAR2aImC38sV-SlUz3HteEMh5KyEFwvXRPR9IXoyNO83InpFAowVSahN3oMs" },
   { _id: 6, title: "Item 6", image: "https://jahir.com.bd/wp-content/uploads/2022/08/vOA-300x128.png", link: "https://www.voabangla.com/a/bd-award/5518210.html?fbclid=IwAR1W5nh0nZkNiGfDXHSualxjJuBH7_tXSTjZ01fjvPYKkZC7S_aP3HdCEqc" },
@@ -39,21 +53,58 @@ const featureData = [
 ]
 
 
+const blogs = [
+  {
+    "_id": "1",
+    "title": "Writing Skills",
+    "description": "Description for Sample 1",
+    "image": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "date": "2024-02-15"
+  },
+  {
+    "_id": "2",
+    "title": "Communication Skills",
+    "description": "Description for Sample 2",
+    "image": "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "date": "2024-02-16"
+  },
+  {
+    "_id": "3",
+    "title": "Skills Development",
+    "description": "Description for Sample 3",
+    "image": "https://images.unsplash.com/photo-1503551723145-6c040742065b-v2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "date": "2024-02-17"
+  },
+  {
+    "_id": "4",
+    "title": "Sample Title 4",
+    "description": "Description for Sample 4",
+    "image": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "date": "2024-02-18"
+  },
+  {
+    "_id": "5",
+    "title": "Sample Title 5",
+    "description": "Description for Sample 5",
+    "image": "https://images.unsplash.com/photo-1503551723145-6c040742065b-v2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "date": "2024-02-19"
+  },
+  {
+    "_id": "6",
+    "title": "Sample Title 6",
+    "description": "Description for Sample 6",
+    "image": "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "date": "2024-02-20"
+  }
+]
+
+
+
 export default function Home() {
 
+  const [toggle, setToggole] = useState();
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    setValue,
-    formState: { errors },
-  } = useForm();
 
-  const onSubmit = async (data) => {
-    console.log(data)
-    reset()
-  }
 
   useEffect(() => {
     const textWrappers = document.querySelectorAll(".text-wrapper")
@@ -111,19 +162,78 @@ export default function Home() {
     }
   })
 
+  useEffect(() => {
+
+    let tl = gsap.timeline();
+
+    tl.from("#create", { x: '-200%' });
+    tl.to("#create", { x: '0%', duration: 2, stagger: 1.5 });
+
+    return () => {
+      tl.kill();
+    }
+  })
+
 
   return (
-    <div className=" bg-[#0C0E12] text-white">
-      <div className="z-50 text-white bg-[#020509] fixed flex flex-col justify-between py-10 px-5 text-center h-full">
-        <div>Menu</div>
-        <div>d</div>
-        <div>Icons</div>
+    <div className=" bg-[#0C0E12] text-slate-200">
+
+      <div id='create' className={`${!toggle ? 'hidden' : 'block'} w-full min-h-screen absolute z-50 bg-[#020509] pl-28`}>
+        <div className="flex justify-end pr-10 pt-10">
+          <Icon onClick={() => setToggole(!toggle)} icon={toggle ? close : navigation} className="text-center hover:text-slate-200 text-gray-600 text-2xl transition-all duration-200 cursor-pointer" />
+        </div>
+        <div className={`min-h-screen flex justify-center items-center`}>
+
+          <ul className='flex flex-col gap-8'>
+            <li><Link href={'/'} className='text-3xl font-bold' >Home</Link></li>
+            <li><Link href={'#about'} className='text-3xl font-bold' >About Me</Link></li>
+            <li><Link href={'/'} className='text-3xl font-bold' >Skills</Link></li>
+          </ul>
+        </div>
       </div>
+
+      {/* left nav  */}
+      <div className="z-50 text-slate-200 bg-[#020509] fixed flex flex-col items-center justify-between py-10 px-5 text-center h-full">
+        <div className="flex justify-center flex-col">
+          <div className="mb-8">
+            <Link href={'/'}>
+              <img src={logo.src} className="w-10 border border-gray-600 hover:rounded-lg transition-all duration-200" alt="Muhammad Jahirul Islam" />
+            </Link>
+          </div>
+          <div onClick={() => setToggole(!toggle)} className="flex justify-center cursor-pointer">
+            <Icon icon={toggle ? close : navigation} className="text-center text-gray-600 text-2xl " />
+          </div>
+        </div>
+        <div>
+          <ul className="flex flex-col gap-8 justify-center">
+            <Link href={'https://www.facebook.com/Jahir.Ignite'} target="_blank">
+              <li className="border border-gray-600 text-gray-600 hover:text-slate-200 hover:border-white p-2 hover:rounded-lg transition-all duration-200"><Icon icon={facebookIcon} className="text-center text-xl" /></li>
+            </Link>
+            <Link href={'https://www.linkedin.com/in/muhammad-jahirul-islam-41b436bb/'} target="_blank">
+              <li className="border border-gray-600 text-gray-600 hover:text-slate-200 hover:border-white p-2 hover:rounded-lg transition-all duration-200"><Icon icon={linkedin} className="text-center text-xl" /></li>
+            </Link>
+            <Link href={'https://twitter.com/jahirrayhan80'} target="_blank">
+              <li className="border border-gray-600 text-gray-600 hover:text-slate-200 hover:border-white p-2 hover:rounded-lg transition-all duration-200"><Icon icon={instagram} className="text-center text-xl" /></li>
+            </Link>
+            <Link href={'https://www.youtube.com/channel/UCB_tJEyTocrkY2zfQ7dFm7w'} target="_blank">
+              <li className="border border-gray-600 text-gray-600 hover:text-slate-200 hover:border-white p-2 hover:rounded-lg transition-all duration-200"><Icon icon={twitter} className="text-center text-xl" /></li>
+            </Link>
+            <Link href={'https://www.instagram.com/muhammadjahirulislam99/'} target="_blank">
+              <li className="border border-gray-600 text-gray-600 hover:text-slate-200 hover:border-white p-2 hover:rounded-lg transition-all duration-200"><Icon icon={youtube} className="text-center text-xl" /></li>
+            </Link>
+          </ul>
+        </div>
+      </div>
+
+      {/* banner  */}
       <div className="h-screen relative content-wrapper ">
         <div className="text-wrapper">
           <Banner />
         </div>
       </div>
+
+
+
       {/* about  */}
       <div id="about" className="pl-28 pr-10">
         <div className="flex lg:flex-row flex-col-reverse gap-8">
@@ -136,12 +246,12 @@ export default function Home() {
             <p className="text-justify py-5">This is Muhammad Jahirul Islam the Founder and Chairman of Ignite Global Foundation and Director of Matribhumi Group. I have pursued my undergrad degree in Aeronautical Engineering from the United College of Aviation. I have also completed my post-graduation in Aerospace Engineering from Carden University, USA. Now I am running my own business as well as charity works. Alongside I have been serving as a lecturer at the United College of Aviation Science and Management. <br /> <br /> My first book titled ‘Aviation Career’ has been published at ‘Ekushe Boi Mela-2022’ from Addomo publication. I have dreamt dreams to build a nation with zero hunger and want to provide quality education to every doorstep of underprivileged children in Bangladesh.</p>
             <Button url={'/'} text={'My Initiatives'} />
 
-            <div className="flex justify-around gap-8 mt-8">
+            <div className="flex justify-left gap-8 mt-8">
               <Link href={'https://ignite.com.bd/'} target="_blank">
-                <img src={ignite.src} alt="Ignite" className="w-64" />
+                <img src={ignite.src} alt="Ignite" className="w-52" />
               </Link>
               <Link href={'https://matribhumigroup.com/'} target="_blank">
-                <img src={matribhumi.src} alt="Matribhumi Group" className="w-64" />
+                <img src={matribhumi.src} alt="Matribhumi Group" className="w-52" />
               </Link>
             </div>
           </div>
@@ -166,7 +276,7 @@ export default function Home() {
 
 
       {/* Awards Section */}
-      <div className="pl-5 pr-5 lg:pl-28 lg:pr-10">
+      <div className="pl-5 pr-5 lg:pl-28 lg:pr-10 mb-20">
         <div className="">
           {/* Awards Content */}
           <div className="container mx-auto">
@@ -194,11 +304,11 @@ export default function Home() {
               >
                 {/* Timeline Dot */}
                 <div className="z-20 flex items-center order-1 absolute left-[725px] border border-orange-500 bg-[#0C0E12] shadow-xl px-5 py-1 rounded-full">
-                  <span className="mx-auto font-semibold text-lg text-white">{year}</span>
+                  <span className="mx-auto font-semibold text-lg text-slate-200">{year}</span>
                 </div>
 
                 {/* Timeline Content */}
-                <div className=" order-1 bg-[#020509] rounded-lg shadow-xl w-full lg:w-5/12 px-6 py-4 text-white">
+                <div className=" order-1 bg-[#020509] rounded-lg shadow-xl w-full lg:w-5/12 px-6 py-4 text-slate-200">
                   <h3 className="font-bold text-xl text-orange-500">{title}</h3>
                   <p className="text-sm leading-snug tracking-wide py-5">
                     {description}
@@ -212,13 +322,12 @@ export default function Home() {
       </div>
 
 
-
       {/* FEATURED Section */}
-      <div className="pl-5 pr-5 py-20 lg:pl-28 lg:pr-10">
+      <div className="pl-5 pr-5 py-20 lg:pl-28 lg:pr-10 bg-[#020509]">
         <div className="">
           {/* Awards Content */}
           <div className="container mx-auto">
-            <h3 className="font-semibold text-2xl py-5 border-b inline-block border-orange-500 mb-8">I HAVE BEEN FEATURED IN..</h3>
+            <h3 className="font-semibold text-2xl pb-5 border-b inline-block border-orange-500 mb-8">I HAVE BEEN FEATURED IN..</h3>
           </div>
 
           <div className="flex flex-wrap justify-around gap-8">
@@ -236,53 +345,33 @@ export default function Home() {
       </div>
 
 
-
-      {/* Get In Touch Section */}
-      <div className="pl-5 pr-5 py-20 lg:pl-28 lg:pr-10">
+      {/* Blogs  */}
+      <div className="pl-5 pr-5 py-20 lg:pl-28 lg:pr-10 bg-[#020509]">
         <div className="">
-          {/* Awards Content */}
           <div className="container mx-auto">
-            <h3 className="font-semibold text-2xl py-5 border-b inline-block border-orange-500 mb-8">Get In Touch</h3>
+            <h3 className="font-semibold text-2xl pb-5 border-b inline-block border-orange-500 mb-8">Blogs</h3>
+          </div>
 
-
-            <div className="flex lg:flex-row flex-col gap-8">
-              <div className="w-full">
-                <p>
-                  I’m Muhammad Jahirul Islam, a young professional from Bangladesh. I would love to spread positivism toward others. I’m a multidisciplinary creative soul and try to take a sustainable and distinct approach with various areas of expertise to motivate today’s young generation. I have provided different skill development training and courses. Also, I’ve offered multiple sessions about career development, soft and hard skill, and so on. Till now I have reached more or less 25 thousand students and tried my best to provoke and inspire them that could be helped them to move on their future steps. Last but not the least, if you need any favor from me please feel free to contact me.
-                </p>
-                <div className="mt-5">
-                  <p>+8801839319088</p>
-                  <p>jahirrayhan80@gmail.com</p>
+          <div className="container mx-auto grid grid-cols-3 gap-8">
+            {
+              blogs.slice(0, 3).map(item => (
+                <div key={item._id}>
+                  <div>
+                    <img src={item.image} />
+                    <Link href={'/'}>
+                    <h2 className="bg-orange-500 px-3 py-5 font-semibold text-xl mt-2">{item.title}</h2>
+                    </Link>
+                  </div>
                 </div>
-              </div>
-              <div className="w-full">
-                <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto">
-                  <div className="flex gap-8">
-                    <div className="relative z-0 w-full mb-5 group">
-                      <input type='name' {...register("name", { required: true })} id='name' className="block py-2.5 px-0 rounded w-full text-md text-slate-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" />
-                      <label htmlFor="name" className="peer-focus:font-medium absolute text-md text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">First name</label>
-                    </div>
-                    <div className="relative z-0 w-full mb-5 group">
-                      <input type='email' {...register("email", { required: true })} id='email' className="block py-2.5 px-0 rounded w-full text-md text-slate-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" />
-                      <label htmlFor='email' className="peer-focus:font-medium absolute text-md text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email</label>
-                    </div>
-                  </div>
-                  <div className="relative z-0 w-full mb-5 group">
-                    <input type='phone' {...register("phone", { required: true })} id='phone' className="block py-2.5 px-0 rounded w-full text-md text-slate-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" />
-                    <label htmlFor='phone' className="peer-focus:font-medium absolute text-md text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Phone number</label>
-                  </div>
-                  <label htmlFor='message' className="peer-focus:font-medium absolute text-md text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 ">Your message</label>
-                  <textarea id="message" rows="4" className="mb-8 block py-2.5 px-0 rounded w-full text-md text-slate-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder='Your message'></textarea>
-                  <button type="submit" className="text-white bg-orange-500 hover:bg-transparent border border-transparent hover:border-white transition-all duration-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-md w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-                </form>
-              </div>
-
-            </div>
+              ))
+            }
           </div>
         </div>
       </div>
 
+      <Contact />
 
+      <Footer />
 
 
     </div>

@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@iconify/icons-fluent": "^1.2.38",
+    "@iconify/icons-mdi": "^1.2.48",
+    "@iconify/icons-ri": "^1.2.10",
+    "@iconify/react": "^4.1.1",
     "@studio-freight/react-lenis": "^0.0.43",
     "gsap": "^3.12.5",
     "next": "14.1.0",
