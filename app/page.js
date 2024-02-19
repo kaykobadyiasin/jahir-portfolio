@@ -38,7 +38,6 @@ const timelineData = [
   { _id: "7", title: "President Scout Award", description: "At first, I recall my very first award named 'President Scout Award-2013' which is recognized by President Abdul Hamid for excellent performance as a PS.", year: 2013, image: "https://jahir.com.bd/wp-content/uploads/2018/04/Scout.jpg" },
 ];
 
-
 const featureData = [
   { _id: 1, title: "Item 1", image: "https://jahir.com.bd/wp-content/uploads/2022/08/sOMOKAL-300x128.png", link: "https://samakal.com/todays-print-edition/tp-sahos/article/200745389/" },
   { _id: 2, title: "Item 2", image: "https://jahir.com.bd/wp-content/uploads/2022/08/pROTHOM-Alo-300x128.png", link: "https://www.prothomalo.com/lifestyle/" },
@@ -176,9 +175,9 @@ export default function Home() {
 
 
   return (
-    <div className=" bg-[#0C0E12] text-slate-200">
+    <div className=" bg-[#0C0E12] text-slate-200 relative">
 
-      <div id='create' className={`${!toggle ? 'hidden' : 'block'} w-full min-h-screen absolute z-50 bg-[#020509] pl-28`}>
+      <div id='create' className={`${!toggle ? 'hidden' : 'block fixed top-0'} w-full min-h-screen absolute z-50 bg-[#020509] pl-28`}>
         <div className="flex justify-end pr-10 pt-10">
           <Icon onClick={() => setToggole(!toggle)} icon={toggle ? close : navigation} className="text-center hover:text-slate-200 text-gray-600 text-2xl transition-all duration-200 cursor-pointer" />
         </div>
