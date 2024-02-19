@@ -4,7 +4,7 @@ import Banner from "./components/Banner/Banner";
 import { ScrollTrigger } from "gsap/all";
 import { useEffect, useState } from "react";
 import jahir from '@/public/jahir.jpg'
-// import ignite from '@/public/ignite.png'
+import ignite from '../public/Ignite.png'
 import matribhumi from '@/public/Matribhumi-group.png'
 import logo from '@/public/fav.png'
 import Button from "./components/Button/Button";
@@ -246,9 +246,9 @@ export default function Home() {
             <Button url={'/'} text={'My Initiatives'} />
 
             <div className="flex justify-left gap-8 mt-8">
-              {/* <Link href={'https://ignite.com.bd/'} target="_blank">
+              <Link href={'https://ignite.com.bd/'} target="_blank">
                 <img src={ignite.src} alt="Ignite" className="w-52" />
-              </Link> */}
+              </Link>
               <Link href={'https://matribhumigroup.com/'} target="_blank">
                 <img src={matribhumi.src} alt="Matribhumi Group" className="w-52" />
               </Link>
