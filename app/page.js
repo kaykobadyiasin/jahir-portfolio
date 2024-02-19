@@ -292,7 +292,7 @@ export default function Home() {
             <div className="bg-orange-500 bg-opacity-50 w-[2px] h-full absolute left-[50%] translate-x-[-50%]"></div>
 
             {/* Timeline Items */}
-            {timelineData.map(({ id, title, description, year, image, link }, index) => (
+            {timelineData?.map(({ id, title, description, year, image, link }, index) => (
               <a
                 key={id}
                 href={link}
@@ -331,10 +331,10 @@ export default function Home() {
 
           <div className="flex flex-wrap justify-around gap-8">
             {
-              featureData.map(item => (
-                <div key={item._id}>
-                  <Link href={item.link} target="_blank">
-                    <img src={item.image} />
+              featureData.map((item, index) => (
+                <div key={index}>
+                  <Link href={item?.link} target="_blank">
+                    <img src={item?.image} />
                   </Link>
                 </div>
               ))
@@ -353,12 +353,12 @@ export default function Home() {
 
           <div className="container mx-auto grid grid-cols-3 gap-8">
             {
-              blogs.slice(0, 3).map(item => (
-                <div key={item._id}>
+              blogs?.slice(0, 3)?.map((item, index) => (
+                <div key={index}>
                   <div>
-                    <img src={item.image} />
+                    <img src={item?.image} />
                     <Link href={'/'}>
-                    <h2 className="bg-orange-500 px-3 py-5 font-semibold text-xl mt-2">{item.title}</h2>
+                      <h2 className="bg-orange-500 px-3 py-5 font-semibold text-xl mt-2">{item?.title}</h2>
                     </Link>
                   </div>
                 </div>
